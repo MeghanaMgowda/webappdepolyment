@@ -18,8 +18,8 @@
 on:
  pull_request:
    types: [ closed ]
- push:
-  branches: master
+   branches: master
+   
 env:
   AZURE_WEBAPP_NAME: rise1    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
