@@ -17,11 +17,11 @@
 # For more samples to get started with GitHub Action workflows to deploy to Azure, refer to https://github.com/Azure/actions-workflow-samples
 on:
  pull_request:
-   types: [ closed ]
-   branches: master
+   types: [ opened ]
+   
    
 env:
-  AZURE_WEBAPP_NAME: rise1    # set this to your application's name
+  AZURE_WEBAPP_NAME: Myapp28    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.x'                # set this to the node version to use
 
@@ -29,7 +29,7 @@ jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
-    environment: production_master
+    environment: production
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ env.NODE_VERSION }}
@@ -43,10 +43,7 @@ jobs:
         npm install
         npm run build --if-present
         npm run test --if-present
-    - name: 'Login via Azure CLI'
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2
       with:
